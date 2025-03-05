@@ -1,0 +1,8 @@
+#ifndef MATH_STEEPESTDESCENT_HPP
+#define MATH_STEEPESTDESCENT_HPP
+
+namespace math{
+  
+}
+
+#endif // MATH_STEEPESTDESCENT_HPP
