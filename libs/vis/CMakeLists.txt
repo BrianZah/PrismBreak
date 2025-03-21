@@ -1,8 +1,8 @@
-add_library(vis src/vis_Camera.cpp
-                src/vis_Controls.cpp
-                src/vis_Window.cpp
-                src/vis_Window_CameraOptimizer.cpp
-                src/vis_Window_PerformanceTest.cpp
-                src/vis_PrismFramebuffer.cpp)
-target_link_libraries(vis glad glfw glm glfwCPP pass)
+add_library(vis vis/src/Camera.cpp
+                vis/src/Controls.cpp
+                vis/src/Window.cpp
+                vis/src/Window_CameraOptimizer.cpp
+                vis/src/Window_PerformanceTest.cpp
+                vis/src/PrismFramebuffer.cpp)
+target_link_libraries(vis glad glfw glm glPP glfwPP pass context)
 target_include_directories(vis PUBLIC ./)
