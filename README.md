@@ -62,6 +62,8 @@ We also provide the simplex datasets used for the performance tests in our paper
 [ctrl]+[left mouse button] bookmark tile, when applied on prism; focus camera on tile when applied on bookmarks list  
 [ctrl]+[right mouse button] debookmark tile  
 [alt]+[left mouse button] only available in third stage rotate model in box  
+[A] focus left facet  
+[D] focus right facet 
 [r] reset view  
 [esc] end progam  
 [1] recompile shaders (for developers)  
