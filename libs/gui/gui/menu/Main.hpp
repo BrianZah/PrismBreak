@@ -2,7 +2,6 @@
 #define GUI_MENU_MAIN_HPP
 
 #include "vis/Window.hpp"
-//#include "gui/menu/steepestDescent.hpp"
 #include "gui/menu/fileDialog.hpp"
 #include "gui/menu/Coloring.hpp"
 #include "gui/menu/combo/MetricsSortCombo.hpp"
@@ -42,7 +41,6 @@ namespace menu{
     ImGuiStyle& mStyle;
 
     vis::Window& mVis;
-    //menu::SteepestDescent mSteepestDescent;
     menu::FileDialog mFileDialog;
     menu::Coloring mColoring;
 
@@ -65,7 +63,6 @@ namespace menu{
   inline Main::Main(vis::Window& vis, const int& posX, const int& posY, const int& width, const int& height)
   : mVis(vis),
     mPos(posX, posY), mSize(width, height), mSizeNew(width, height), mStyle(ImGui::GetStyle()),
-    //mSteepestDescent(vis),
     mFileDialog(vis),
     mColoring(vis),
     mMetricsSortCombo(vis),
@@ -90,12 +87,7 @@ namespace menu{
     mSizeNew.x = ImGui::GetWindowSize().x;
     mSize.x = mSizeNew.x;
 
-    //if(mWidthHasChanged) {
-    //  mSteepestDescent.setWidth(mSize.x);
-    //}
-    //mSteepestDescent.show();
     showFramerate();
-
     mFileDialog.showIf(true, true);
     mModelCombo.showIf(true, true);
     mScaleByWeight.showIf(true, true);

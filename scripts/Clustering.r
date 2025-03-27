@@ -1,4 +1,3 @@
-library (MASS)
 library (teigen)
 
 reorder <- function(len) {

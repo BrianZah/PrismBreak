@@ -22,32 +22,6 @@
 namespace vis{
   class Window{
   private:
-    class CameraOptimizer{
-    private:
-      friend class vis::Window;
-      enum Mode{converged, warmup, globalSearch, moveCamera, optimize, search};
-      Window& mWindow;
-      std::shared_ptr<vis::Camera>& mCamera;
-      pass::RayCast& mRayCast;
-      Mode mMode;
-      int mNumCamsGlobalSearch = 10;
-      glm::vec3 mOffset;
-      int mSteps;
-      Eigen::Vector3f mStepWidth;
-      Eigen::Vector3f mGradient;
-      glm::vec3 mTargetPosition;
-      int mMaxSteps;
-      CameraOptimizer(Window& window);
-      glm::vec3 orthogonalize(const glm::vec3& basis, const glm::vec3& input) const;
-      glm::vec3 sphericalToCartesian(const float& radius, const float& inc, const float azi) const;
-      glm::vec3 cartesianToSpherical(const float& x, const float& y, const float z) const;
-      void placeCamerasFor(const Mode& mode);
-      bool operator()();
-    public:
-      void start(const int& maxSteps = 1);
-      bool running();
-      void stop();
-    };
     class PerformanceTest{
     private:
       Window& mWindow;
@@ -90,14 +64,12 @@ namespace vis{
   public:
     enum RenderPass{prism, rayCast};
   private:
-    friend class CameraOptimizer;
     friend class PerformanceTest;
     friend class LoadingTest;
 
     std::shared_ptr<vis::Camera> mCamera;
     std::shared_ptr<vis::Camera> mCameraAlt;
     vis::Controls mControls;
-    CameraOptimizer mOptimizeCamera;
 
     int mPosX;
     int mPosY;
@@ -174,7 +146,6 @@ public:
     const int& getHeight() const;
     const float getRatio() const;
     const bool cameraIsMoving() const;
-    CameraOptimizer& refCameraOptimizer();
     PerformanceTest& refPerformanceTest();
     LoadingTest& refLoadingTest();
   }; // class Window

@@ -22,7 +22,7 @@ namespace vis{
                  const int& posX, const int& posY,
                  const int& width, const int& height)
   : mWindow(parentWindow), mCamera(new Camera), mCameraAlt(new Camera),
-    mBookmarksContext(new context::Bookmarks), mOptimizeCamera(*this),
+    mBookmarksContext(new context::Bookmarks),
     mPerformanceTest(*this), mLoadingTest(*this)
   {
     mMode = prism;
@@ -269,7 +269,6 @@ namespace vis{
         case rayCast: {
           mPoints.execute();
           mRayCast.execute();
-          mOptimizeCamera();
           break;
         }
       }
@@ -299,7 +298,6 @@ namespace vis{
   const float Window::getRatio() const { return 1.0f*mWidth/mHeight; }
   const bool Window::cameraIsMoving() const { return mControls.userInteraction(); }
 
-  Window::CameraOptimizer& Window::refCameraOptimizer() {return mOptimizeCamera;}
   Window::PerformanceTest& Window::refPerformanceTest() {return mPerformanceTest;}
   Window::LoadingTest& Window::refLoadingTest() {return mLoadingTest;}
 } // namespace vis

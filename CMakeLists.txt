@@ -18,7 +18,6 @@ add_subdirectory(${LIBS}/context)
 add_subdirectory(${LIBS}/glPP)
 add_subdirectory(${LIBS}/glfwPP)
 add_subdirectory(${LIBS}/vis)
-#add_subdirectory(${LIBS}/menu)
 add_subdirectory(${LIBS}/pass)
 add_subdirectory(${LIBS}/gui)
 
