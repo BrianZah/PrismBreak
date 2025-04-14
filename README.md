@@ -28,7 +28,7 @@ Run the program:
 ```bash
 ./main.exe
 ```
-**Our Setup**: The tool was mainly developed on a machine running debian 12. The computer had rtx 3070 ti an d and intel i7 12700k.
+**Our Setup**: The tool was mainly developed on a machine running debian 12. The computer had an rtx 3070 ti and intel i7 12700k.
 ### Windows
 1. Download the repository and create a build directory within it.
 2. Navigate to the build directory using the command line and execute the following commands:
