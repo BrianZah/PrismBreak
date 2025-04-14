@@ -63,8 +63,8 @@ We also provide the simplex datasets used for the performance tests in our paper
 [ctrl]+[right mouse button] debookmark tile  
 [alt]+[left mouse button] only available in third stage rotate model in box  
 [A] focus left facet  
-[D] focus right facet 
-[r] reset view  
+[D] focus right facet  
+[R] reset view  
 [esc] end progam  
 [1] recompile shaders (for developers)  
 
