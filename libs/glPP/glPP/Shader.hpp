@@ -12,6 +12,8 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <iomanip>
+#include <algorithm>
 
 namespace glPP{
 class Shader{
@@ -44,7 +46,8 @@ private:
   //mutable std::vector<unsigned int> subroutineIndices;
 
   inline std::string shaderCode(const std::string& path, const std::string& macros = "", const bool& firstRecursion = true) const;
-  inline void checkCompileErrors(GLuint shader, std::string type) const;
+  inline void checkCompileErrors(const GLuint& shader, const std::string& path, const std::string& code) const;
+  inline void checkLinkingErrors(const GLuint& shader) const;
   inline void init() const;
   inline void initEmpty() const;
 public:
@@ -125,12 +128,12 @@ inline void Shader::init() const {
 
       glShaderSource(glShader, 1, &cCode, NULL);
       glCompileShader(glShader);
-      checkCompileErrors(glShader, "Shader");
+      checkCompileErrors(glShader, specs.mPath, code);
       glAttachShader(mId, glShader);
     glDeleteShader(glShader);
   }
   glLinkProgram(mId);
-  checkCompileErrors(mId, "PROGRAM");
+  checkLinkingErrors(mId);
 }
 
 inline void Shader::initEmpty() const {
@@ -141,11 +144,11 @@ inline void Shader::initEmpty() const {
 
     glShaderSource(glShader, 1, &cCode, NULL);
     glCompileShader(glShader);
-    checkCompileErrors(glShader, "Shader");
+    checkCompileErrors(glShader, "", code);
     glAttachShader(mId, glShader);
     glDeleteShader(glShader);
   glLinkProgram(mId);
-  checkCompileErrors(mId, "PROGRAM");
+  checkLinkingErrors(mId);
 }
 
 inline Shader::Shader(const std::initializer_list<Specs>& specs)
@@ -324,23 +327,32 @@ inline void Shader::setBlock(const std::string& name, const int& uniformBlockBin
 //}
 //void Shader::storeSubroutine(const std::string& uniformName, const std::string& subroutineName) const {}
 //void Shader::setSubroutines() const {}
-inline void Shader::checkCompileErrors(GLuint shader, std::string type) const {
-    GLint success;
-    GLchar infoLog[1024];
-    if(type != "PROGRAM") {
-        glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-        if(!success) {
-            glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-            std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-        }
+inline void Shader::checkCompileErrors(const GLuint& shader, const std::string& path, const std::string& code) const {
+  GLint success;
+  GLchar infoLog[1024];
+  glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+  if(!success) {
+    glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+    std::string log(infoLog);
+    std::cout << "[Error](Shader::checkCompileErrors) " << path << "\n" << log << std::endl;
+    std::string line;
+    std::istringstream streamCode(code);
+    for(int i = 1; std::getline(streamCode, line); ++i) {
+      std::cout << std::right << std::setw(5) << i << "  " <<  line << "\n";
+      //int numSpaces = std::ranges::count(line, ' ');
+      //i += line.size() - numSpaces;
     }
-    else {
-        glGetProgramiv(shader, GL_LINK_STATUS, &success);
-        if(!success) {
-            glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-            std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-        }
-    }
+  }
+}
+inline void Shader::checkLinkingErrors(const GLuint& shader) const {
+  GLint success;
+  GLchar infoLog[1024];
+  glGetProgramiv(shader, GL_LINK_STATUS, &success);
+  if(!success) {
+    glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+    std::string log(infoLog);
+    std::cout << "[Error](Shader::checkLinkingErrors)\n" << log << std::endl;
+  }
 }
 inline Shader::~Shader() {glDeleteProgram(mId);}
 } // namespace glPP

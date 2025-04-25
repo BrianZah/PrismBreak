@@ -28,7 +28,7 @@ A toArray(const std::string& filename, const std::string& seperator = ",", const
 
   std::string line;
   A array;
-  std::cout << "[Info] (csv::getData) test1" << filename;
+  std::cout << "[Info] (csv::getData) test1" << filename << std::endl;
   using T = A::value_type;
   for(int row = 0; std::getline(file, line); ++row) {
     if(std::find(discardRows.begin(), discardRows.end(), row) != discardRows.end()) continue;
