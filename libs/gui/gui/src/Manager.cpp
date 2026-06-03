@@ -19,7 +19,7 @@ namespace gui{
     mVis(vis),
     mInitialized(false),
     mMenu(vis, 0, 0, window.getHeight()/5, window.getHeight()),
-    mShowDemoWindow(true)
+    mShowDemoWindow(false)
   {
     std::string glVersion = "#version 450";
     IMGUI_CHECKVERSION();
