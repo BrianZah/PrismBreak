@@ -1,3 +1,4 @@
+// Source: https://www.shadertoy.com/view/dsGXDt
 /*   ### How to use this shader ? ###
 
    = Setup =
@@ -224,7 +225,7 @@
 #define _       ); u.x -= CHAR_SPACING; d += _char(FONT_TEXTURE, u,
 
 // Print character
-float _char(sampler2D s, vec2 u, int id) {
+float _char(usampler2D s, vec2 u, int id) {
     vec2 p = vec2(id%16, 15. - floor(float(id)/16.));
          p = (u + p) / 16.;
          u = step(abs(u-.5), vec2(.5));
@@ -232,7 +233,7 @@ float _char(sampler2D s, vec2 u, int id) {
 }
 
 // Floating point debug
-float _decimal(sampler2D FONT_TEXTURE, inout vec2 u, float n, int decimals) {
+float _decimal(usampler2D FONT_TEXTURE, inout vec2 u, float n, int decimals) {
     float d = 0., N = 1.; // d is the final color, N the number of digits before the decimal
 
     if (n < 0.) {  // If the number is negative
